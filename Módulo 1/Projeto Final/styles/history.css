@@ -1,0 +1,90 @@
+.history {
+    width: 320px;
+    height: 360px;
+    background: #F4F1F2;
+    border: 1px solid #DFDCDF;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-block: 28px;
+    padding-inline: 24px;
+
+    .header-history {
+        display: flex;
+        justify-content: space-between;
+        font-family: 'Oxygen';
+        font-style: normal;
+        line-height: 140%;
+        font-size: 12px;
+
+        .title {
+
+            font-family: 'Oxygen';
+            font-style: normal;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #756C71;
+
+        }
+
+        .other-info {
+
+            font-weight: 400;
+            color: #756C71;
+
+        }
+
+    }
+
+    .list-history {
+        display: flex;
+        flex-direction: column;
+        padding: 12px 0px 0px;
+        gap: 12px;
+        border-top: 2px solid #E9E7E9;
+        overflow-y: scroll;
+
+        .item-history {
+            display: flex;
+            justify-content: space-between;
+
+            .date-item-history {
+                font-family: 'Oxygen';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 12px;
+                line-height: 140%;
+                text-transform: uppercase;
+
+                color: #4A4448;
+
+            }
+
+            .date-item-hour {
+                font-family: 'Oxygen';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 140%;
+                color: #756C71;
+            }
+
+        }
+    }
+}
+
+@media (width <=40em) {
+    .history {
+        width: 85vw;
+        height: 360px;
+        background: #F4F1F2;
+        border: 1px solid #DFDCDF;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding-block: 28px;
+        padding-inline: 24px;
+    }
+}

@@ -1,0 +1,116 @@
+.card {
+    width: 568px;
+    height: 333px;
+    background: #F4F1F2;
+    border: 1px solid #DFDCDF;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+
+    .grid-check {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        column-gap: 16px;
+        row-gap: 16px;
+
+        img {
+            position: relative;
+            width: 64px;
+            height: 64px;
+            left: calc(50% - 64px/2);
+            top: calc(50% - 64px/2);
+        }
+
+        .check {
+            width: 88px;
+            height: 88px;
+            border-radius: 20px;
+            background-color: var(--gray-200);
+
+        }
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 32px;
+
+        .header-left {
+            display: flex;
+            flex-direction: column;
+
+            .title {
+                font-family: 'Oxygen';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 12px;
+                line-height: 140%;
+                text-transform: uppercase;
+                color: #756C71;
+            }
+
+            .description {
+                font-family: 'Oxygen';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 140%;
+                color: #756C71;
+            }
+        }
+
+        .header-right {
+            font-family: 'Oxygen';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 140%;
+            display: flex;
+            align-items: center;
+            text-transform: uppercase;
+            color: #756C71;
+            border-radius: 9999px;
+            background-color: var(--gray-300);
+            padding: 10px;
+        }
+    }
+
+}
+
+@media (width <=40em) {
+    .card {
+        width: 85vw;
+        height: 333px;
+        background: #F4F1F2;
+        border: 1px solid #DFDCDF;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        padding: 32px;
+        margin-top: 2rem;
+
+        .grid-check {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            column-gap: 16px;
+            row-gap: 16px;
+
+            img {
+                position: relative;
+                width: 54px;
+                height: 54px;
+                left: calc(50% - 54px/2);
+                top: calc(50% - 54px/2);
+            }
+
+            .check {
+                width: 78px;
+                height: 78px;
+                border-radius: 20px;
+                background-color: var(--gray-200);
+
+            }
+        }
+    }
+}
