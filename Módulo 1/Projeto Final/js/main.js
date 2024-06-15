@@ -1,6 +1,17 @@
-const buttonEnter = document.getElementById("enterID");
+const buttonEnter = document.getElementById("searchID");
 const containerID = document.getElementById("containerID");
 containerID.style.display = "none";
+
+const inputID = document.getElementById("inputID");
+
+inputID.addEventListener("input", () => {
+    if (!inputID.value) {
+        buttonEnter.disabled = true;
+        return;
+    }
+
+    buttonEnter.disabled = false;
+});
 
 const getClients = async () => {
     try {
@@ -80,9 +91,7 @@ const showHistory = (client) => {
 
 buttonEnter.onclick = async () => {
     const allClients = await getClients();
-    const inputID = document.getElementById("inputID").value;
-
-    const filterClient = allClients.find((client) => client.id.replace("-", "").includes(inputID));
+    const filterClient = allClients.find((client) => client.id.replace("-", "").includes(inputID.value));
 
     if (filterClient) {
         containerID.style.display = "flex";
@@ -95,3 +104,4 @@ buttonEnter.onclick = async () => {
     }
 
 }
+

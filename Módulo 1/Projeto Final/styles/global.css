@@ -6,21 +6,24 @@
 
 :root {
     --pink: #D658B3;
-    --green: #45B442;
-    --gray-100: #F4F1F2;
+    --green: #2DAA6E;
+    --blue: #2DAAAA;
+    --purple: #856CCF;
     --gray-200: #E9E7E9;
     --gray-300: #DFDCDF;
     --gray-400: #CECACD;
     --gray-500: #756C71;
     --gray-600: #4A4448;
     --gray-700: #332B31;
-    --white: #FFFFFF;
+    --button-disabled: #7C7C8A;
+    --almost-white: #F4F1F2;
 
+
+    --border: 1px solid var(--gray-300);
     --font-family: "Oxygen", sans-serif;
-    --text-lg: bold 32px/125% var(--font-family);
-    --text: 16px/150% var(--font-family);
-    --text-md: 14px/175% var(--font-family);
-    --text-sm: 12px/175% var(--font-family);
+    --text-normal: normal 14px/140% var(--font-family);
+    --border-rounded: 9999px;
+
 }
 
 
@@ -37,8 +40,8 @@ body {
 }
 
 .container {
-    padding-inline: 32px;
-    max-width: 1280px;
+    padding-inline: 2rem;
+    max-width: 80rem;
     margin-inline: auto;
     display: flex;
     align-items: center;
@@ -63,7 +66,7 @@ body {
 @media (width <=40em) {
     .container {
         max-width: 100vw;
-        padding-inline: 32px;
+        padding-inline: 2rem;
         margin-inline: auto;
         display: flex;
         align-items: center;
