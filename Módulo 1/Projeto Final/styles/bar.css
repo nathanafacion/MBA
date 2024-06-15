@@ -16,7 +16,7 @@
             font-style: normal;
             font-size: 16px;
             line-height: 140%;
-            color: #4A4448;
+            color: var(--gray-600);
             display: inline
         }
 
@@ -26,7 +26,7 @@
             font-size: 12px;
             line-height: 140%;
             display: flex;
-            color: #4A4448;
+            color: var(--gray-600);
             gap: 10px;
 
             .legend {
@@ -38,7 +38,8 @@
         .number-hair-cut {
             font-weight: 700;
             font-size: 24px;
-            display: inline
+            display: inline;
+            padding-right: 0.2rem;
         }
 
         progress {
