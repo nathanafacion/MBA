@@ -8,8 +8,13 @@
     display: flex;
 
     img {
+
+        --color-border: linear-gradient(90deg, var(--green) 0%, var(--blue) 33.33%, var(--purple), var(--pink) 100%);
         height: 56px;
         width: 56px;
+        background: var(--color-border) border-box;
+        border: 3px solid transparent;
+        border-radius: 1em;
     }
 
     .name {

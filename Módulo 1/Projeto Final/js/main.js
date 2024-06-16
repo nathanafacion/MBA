@@ -1,8 +1,16 @@
 const buttonEnter = document.getElementById("searchID");
+const inputID = document.getElementById("inputID");
+const okID = document.getElementById("okID");
+
 const containerID = document.getElementById("containerID");
 containerID.style.display = "none";
 
-const inputID = document.getElementById("inputID");
+const dialogID = document.getElementById("dialogID");
+dialogID.style.display = "none";
+
+
+const containerMessageID = document.getElementById("containerMessageID");
+containerMessageID.style.display = "none";
 
 inputID.addEventListener("input", () => {
     if (!inputID.value) {
@@ -57,6 +65,10 @@ const showCard = (client) => {
     const descriptionID = document.getElementById("descriptionID");
     descriptionID.innerHTML = `Ao fazer cortes de cabelo, o ${cutsNeeded}° corte sai de graça!`;
 
+    if (totalCuts >= cutsNeeded) {
+        dialogID.style.display = "flex";
+    }
+
 }
 
 const showPerfil = (client) => {
@@ -94,6 +106,7 @@ buttonEnter.onclick = async () => {
     const filterClient = allClients.find((client) => client.id.replace("-", "").includes(inputID.value));
 
     if (filterClient) {
+        containerMessageID.style.display = "none";
         containerID.style.display = "flex";
         showBar(filterClient);
         showCard(filterClient);
@@ -101,7 +114,12 @@ buttonEnter.onclick = async () => {
         showHistory(filterClient);
     } else {
         containerID.style.display = "none";
+        containerMessageID.style.display = "block";
     }
 
 }
 
+
+okID.onclick = async () => {
+    dialogID.style.display = "none";
+};
