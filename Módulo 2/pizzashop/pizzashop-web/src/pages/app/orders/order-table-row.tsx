@@ -1,12 +1,13 @@
-import { formatDistanceToNow } from "date-fns";
-import { ptBR } from "date-fns/locale";
 import { ArrowRight, Search, X } from "lucide-react";
-
-import { Button } from "./../../../components/ui/button";
 import { Dialog, DialogTrigger } from "./../../../components/ui/dialog";
 import { TableCell, TableRow } from "./../../../components/ui/table";
-import { OrderStatus } from "../../../components/ui/order-status";
+
+import { Button } from "./../../../components/ui/button";
 import { OrderDetails } from "./order-details";
+import { OrderStatus } from "../../../components/ui/order-status";
+import { formatDistanceToNow } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import { useState } from "react";
 
 export interface OrderTableRowProps {
   order: {
@@ -19,17 +20,19 @@ export interface OrderTableRowProps {
 }
 
 export const OrderTableRow = ({ order }: OrderTableRowProps) => {
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+
   return (
     <TableRow>
       <TableCell>
-        <Dialog>
+        <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
           <DialogTrigger asChild>
             <Button variant="outline" size="sm">
               <Search className="h-3 w-3" />
               <span className="sr-only"> Detalhes do Pedido</span>
             </Button>
           </DialogTrigger>
-          <OrderDetails />
+          <OrderDetails orderId={order.orderId} open={isDetailsOpen} />
         </Dialog>
       </TableCell>
       <TableCell className="font-mono text-xs font-medium">
