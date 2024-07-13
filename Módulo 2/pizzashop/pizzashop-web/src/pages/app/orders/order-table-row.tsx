@@ -1,11 +1,24 @@
-import { Dialog, DialogTrigger } from "./../../../components/ui/dialog";
+import { formatDistanceToNow } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { ArrowRight, Search, X } from "lucide-react";
 
 import { Button } from "./../../../components/ui/button";
+import { Dialog, DialogTrigger } from "./../../../components/ui/dialog";
 import { TableCell, TableRow } from "./../../../components/ui/table";
+import { OrderStatus } from "../../../components/ui/order-status";
 import { OrderDetails } from "./order-details";
 
-export const OrderTableRow = () => {
+export interface OrderTableRowProps {
+  order: {
+    orderId: string;
+    createdAt: string;
+    status: "pending" | "canceled" | "processing" | "delivering" | "delivered";
+    customerName: string;
+    total: number;
+  };
+}
+
+export const OrderTableRow = ({ order }: OrderTableRowProps) => {
   return (
     <TableRow>
       <TableCell>
@@ -20,17 +33,25 @@ export const OrderTableRow = () => {
         </Dialog>
       </TableCell>
       <TableCell className="font-mono text-xs font-medium">
-        3232wqwdqwdq32
+        {order.orderId}
       </TableCell>
-      <TableCell className="text-muted-foreground">há 15 minutos</TableCell>
+      <TableCell className="text-muted-foreground">
+        {" "}
+        {formatDistanceToNow(order?.createdAt, {
+          locale: ptBR,
+          addSuffix: true,
+        })}
+      </TableCell>
       <TableCell>
-        <div className="item-center flex gap-2">
-          <span className="mt-2 h-2 w-2 rounded-full bg-slate-400"></span>
-          <span className="font-medium text-muted-foreground">Pendente</span>
-        </div>
+        <OrderStatus status={order.status} />
       </TableCell>
-      <TableCell className="font-medium">Nathana Facion</TableCell>
-      <TableCell className="font-mediun">R$ 180,00</TableCell>
+      <TableCell className="font-medium">{order.customerName}</TableCell>
+      <TableCell className="font-mediun">
+        {order.total.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        })}
+      </TableCell>
 
       <TableCell>
         <Button variant="ghost" size="sm">
