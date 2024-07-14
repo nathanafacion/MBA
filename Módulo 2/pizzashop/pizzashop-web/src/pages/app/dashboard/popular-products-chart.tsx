@@ -1,12 +1,15 @@
 import {
-  CardHeader,
   Card,
-  CardTitle,
   CardContent,
+  CardHeader,
+  CardTitle,
 } from "./../../../components/ui/card";
+import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
+
 import { BarChart } from "lucide-react";
-import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import colors from "tailwindcss/colors";
+import { getPopularProducts } from "../../../api/get-popular-product";
+import { useQuery } from "@tanstack/react-query";
 
 interface labelProps {
   cx: number;
@@ -18,20 +21,19 @@ interface labelProps {
   index: number;
 }
 
+const COLORS = [
+  colors.sky[500],
+  colors.amber[500],
+  colors.violet[500],
+  colors.emerald[500],
+  colors.rose[500],
+];
+
 export const PopularProductsChart = () => {
-  const data = [
-    { product: "Marguerita", amount: 100, color: colors.blue["500"] },
-    { product: "Corn & Bacon", amount: 140, color: colors.violet["500"] },
-    { product: "Americana", amount: 300, color: colors.violet["900"] },
-    { product: "Portuguesa", amount: 100, color: colors.yellow["100"] },
-    { product: "Brócolis", amount: 10, color: colors.green["400"] },
-    {
-      product: "Frango com Catupiry",
-      amount: 190,
-      color: colors.orange["400"],
-    },
-    { product: "4 Queijos", amount: 60, color: colors.fuchsia["400"] },
-  ];
+  const { data: popularProducts } = useQuery({
+    queryKey: ["metrics", "popular-products"],
+    queryFn: getPopularProducts,
+  });
 
   const generateLabel = ({
     cx,
@@ -42,6 +44,10 @@ export const PopularProductsChart = () => {
     value,
     index,
   }: labelProps) => {
+    if (!popularProducts || !popularProducts[index]) {
+      return null;
+    }
+
     const RADIAN = Math.PI / 180;
     const radius = 12 + innerRadius + (outerRadius - innerRadius);
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -55,9 +61,9 @@ export const PopularProductsChart = () => {
         textAnchor={x > cx ? "start" : "end"}
         dominantBaseline="central"
       >
-        {data[index].product.length > 12
-          ? data[index].product.substring(0, 12).concat("...")
-          : data[index].product}{" "}
+        {popularProducts[index].product.length > 12
+          ? popularProducts[index].product.substring(0, 12).concat("...")
+          : popularProducts[index].product}{" "}
         ({value})
       </text>
     );
@@ -75,32 +81,34 @@ export const PopularProductsChart = () => {
       </CardHeader>
 
       <CardContent>
-        <ResponsiveContainer width="100%" height={240}>
-          <PieChart style={{ fontSize: 12 }}>
-            <Pie
-              dataKey="amount"
-              nameKey="product"
-              data={data}
-              cx="50%"
-              cy="50%"
-              outerRadius={86}
-              innerRadius={44}
-              strokeWidth={3}
-              labelLine={false}
-              label={generateLabel}
-            >
-              {data.map((product) => {
-                return (
-                  <Cell
-                    key={product.color}
-                    fill={product.color}
-                    className="stroke-background hover:opacity-80"
-                  />
-                );
-              })}
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
+        {popularProducts && (
+          <ResponsiveContainer width="100%" height={240}>
+            <PieChart style={{ fontSize: 12 }}>
+              <Pie
+                dataKey="amount"
+                nameKey="product"
+                data={popularProducts}
+                cx="50%"
+                cy="50%"
+                outerRadius={86}
+                innerRadius={44}
+                strokeWidth={3}
+                labelLine={false}
+                label={generateLabel}
+              >
+                {popularProducts?.map((_, index) => {
+                  return (
+                    <Cell
+                      key={COLORS[index]}
+                      fill={COLORS[index]}
+                      className="stroke-background hover:opacity-80"
+                    />
+                  );
+                })}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+        )}
       </CardContent>
     </Card>
   );
