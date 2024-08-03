@@ -1,27 +1,26 @@
 import {
+  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
-  DialogClose,
 } from "../ui/dialog";
-import {
-  getManagerRestaurant,
-  GetManagerRestaurantResponse,
-} from "../../api/get-manager-restaurant";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { z } from "zod";
-
-import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
+import {
+  GetManagerRestaurantResponse,
+  getManagerRestaurant,
+} from "../../api/get-manager-restaurant";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useQueryClient } from "@tanstack/react-query";
 
-import { updateProfile } from "../../api/update-profile";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
+import { toast } from "sonner";
+import { updateProfile } from "../../api/update-profile";
+import { useForm } from "react-hook-form";
+import { useQueryClient } from "@tanstack/react-query";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const storeProfileSchema = z.object({
   name: z.string().min(1),
@@ -74,7 +73,6 @@ export const StoreProfileDialog = () => {
       return { previousProfile: cached };
     },
     onError: (_, __, context) => {
-      console.log("context", context);
       if (context?.previousProfile) {
         updateManagedRestaurantCache(context.previousProfile);
       }

@@ -8,7 +8,7 @@ import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { DateRange } from "react-day-picker";
-import { cn } from "@/lib/utils";
+import { cn } from "../../lib/utils";
 import { format } from "date-fns";
 
 interface DateRangePickerProps extends React.ComponentProps<"div"> {

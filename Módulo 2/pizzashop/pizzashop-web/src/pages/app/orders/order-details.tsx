@@ -14,6 +14,7 @@ import {
   TableRow,
 } from "./../../../components/ui/table";
 
+import { OrderDetailsSkeleton } from "./order-details-skeleton";
 import { OrderStatus } from "../../../components/ui/order-status";
 import { formatDistanceToNow } from "date-fns";
 import { getOrderDetails } from "../../../api/get-order-details";
@@ -38,7 +39,7 @@ export const OrderDetails = ({ orderId, open }: OrderDetailsProps) => {
         <DialogTitle>Pedido: {orderId}</DialogTitle>
         <DialogDescription>Detalhes do Pedido</DialogDescription>
       </DialogHeader>
-      {order && (
+      {order ? (
         <div className="space-y-6">
           <Table>
             <TableBody>
@@ -148,6 +149,8 @@ export const OrderDetails = ({ orderId, open }: OrderDetailsProps) => {
             </TableFooter>
           </Table>
         </div>
+      ) : (
+        <OrderDetailsSkeleton />
       )}
     </DialogContent>
   );

@@ -1,20 +1,20 @@
 import {
   Table,
+  TableBody,
+  TableHead,
   TableHeader,
   TableRow,
-  TableHead,
-  TableBody,
 } from "./../../../components/ui/table";
+
 import { Helmet } from "react-helmet-async";
-import { useSearchParams } from "react-router-dom";
-import { z } from "zod";
-
-import { useQuery } from "@tanstack/react-query";
-
-import { getOrders } from "../../../api/get-orders";
-import { Pagination } from "../../../components/pagination";
 import { OrderTableFilters } from "./order-table-filters";
 import { OrderTableRow } from "./order-table-row";
+import { OrderTableSkeleton } from "./order-table-skeleton";
+import { Pagination } from "../../../components/pagination";
+import { getOrders } from "../../../api/get-orders";
+import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
+import { z } from "zod";
 
 export const Orders = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -27,7 +27,7 @@ export const Orders = () => {
     .transform((page) => page - 1)
     .parse(searchParams.get("page") ?? "1");
 
-  const { data: result } = useQuery({
+  const { data: result, isLoading: isLoadingOrders } = useQuery({
     queryKey: ["orders", pageIndex, orderId, customerName, status],
     queryFn: () =>
       getOrders({
@@ -70,6 +70,7 @@ export const Orders = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
+                {isLoadingOrders && <OrderTableSkeleton />}
                 {result &&
                   result.orders.map((order) => {
                     return <OrderTableRow key={order.orderId} order={order} />;

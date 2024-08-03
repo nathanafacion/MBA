@@ -15,8 +15,6 @@ export async function getDailyRevenueInPeriod({
   to,
 }: GetDailyRevenueInPeriodQuery) {
 
-  console.log("from",from);
-  console.log("to",to);
   const response = await api.get<GetDailyRevenueInPeriodResponse>(
     '/metrics/daily-receipt-in-period',
     {
